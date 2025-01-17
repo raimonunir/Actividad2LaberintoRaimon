@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2106d9c631d05644a802a891250a032, type: 3}
   m_Name: GameManagerSO
   m_EditorClassIdentifier: 
+  secondsToQuitAppAffterWin: 3

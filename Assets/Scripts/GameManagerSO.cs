@@ -15,6 +15,7 @@ public class GameManagerSO : ScriptableObject
     // events
     public event Action<int> OnSwitchActivated;
     public event Action<InteractuableObjectType> OnInteractuableObjectDetected;
+    public event Action OnVictory;
 
     // Switch has been activated
     public void SwitchActivated(int idSwitch)
@@ -26,4 +27,11 @@ public class GameManagerSO : ScriptableObject
     {
         OnInteractuableObjectDetected?.Invoke(interactuableObject);
     }
+
+    public void Victory()
+    {
+        OnVictory?.Invoke();
+    }
+
+
 }

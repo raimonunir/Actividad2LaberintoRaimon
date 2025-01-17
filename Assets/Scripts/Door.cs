@@ -9,25 +9,18 @@ public class Door : MonoBehaviour
     [SerializeField] private GameManagerSO gameManagerSO;
     [SerializeField] private int idDoor;
     [SerializeField] private float speed;
+    [SerializeField][Range(0.5f, 5f)] private float timeOpen;
 
-    private bool open = false;
-    private Collider collider;
+    private bool isClosed = true;
+    private Collider mycollider;
     private float sizeY;
 
     // Start is called before the first frame update
     void Start()
     {
-        collider = GetComponent<Collider>();
+        mycollider = GetComponent<Collider>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (open)
-        {
-            
-        }
-    }
 
     private void OnEnable()
     {
@@ -41,7 +34,7 @@ public class Door : MonoBehaviour
 
     private void OpenDoorEventDetected(int idSwitch)
     {
-        if(idDoor == idSwitch)
+        if(isClosed && idDoor == idSwitch)
         {
             StartCoroutine(OpenCloseDoorMechanic());
         }
@@ -49,11 +42,15 @@ public class Door : MonoBehaviour
 
     private IEnumerator OpenCloseDoorMechanic()
     {
-        float maxOpenYPosition = transform.position.y + 0.1f - collider.bounds.size.y;
+        float maxOpenYPosition = transform.position.y + 0.1f - mycollider.bounds.size.y;
         float closePosition = transform.position.y;
-        float timeOpen = 3f;
-        
-        // open de door
+
+        isClosed = false;
+
+        // wait 1 second
+        yield return new WaitForSeconds(1f);
+
+        // open the door
         while (true)
         {
             transform.Translate(speed * Time.deltaTime * Vector3.down);
@@ -73,5 +70,6 @@ public class Door : MonoBehaviour
             if (transform.position.y >= closePosition)
                 break;
         }
+        isClosed = true;
     } 
 }

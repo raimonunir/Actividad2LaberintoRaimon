@@ -70,7 +70,11 @@ public class PlayerMovement : MonoBehaviour
                 Debug.DrawRay(cameraPlayer.transform.position, cameraPlayer.transform.forward * maxRaycastDistance, Color.red, 10f);
                 if (hitInfo.collider.TryGetComponent(out DoorSwitch doorSwitch))
                 {
-                    gameManagerSO.SwitchActivated(doorSwitch.IdDoorSwitch);
+                    if(doorSwitch.IsSwitchActive)
+                    {
+                        doorSwitch.ActivateAnimation();
+                        gameManagerSO.SwitchActivated(doorSwitch.IdDoorSwitch);
+                    }
                 }
             }
         }

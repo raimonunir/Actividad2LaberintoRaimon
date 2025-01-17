@@ -22,6 +22,8 @@ public class CanvasManager : MonoBehaviour
     private bool firstClick = false;
     private bool isDesativaeTargetInfoRunning = false;
     private bool targetUIwasShowingSomething = false;
+    private float secondsToQuitAppAffterWin = 3f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +56,17 @@ public class CanvasManager : MonoBehaviour
     private void OnEnable()
     {
         gameManagerSO.OnInteractuableObjectDetected += GameManagerSO_OnInteractuableObjectDetected;
+        gameManagerSO.OnVictory += GameManagerSO_OnVictory;
+    }
+
+    private void GameManagerSO_OnVictory()
+    {
+        // hide minimap, show UI end game
+        panelMiniMap.SetActive(false);
+        panelCameraTarget.SetActive(false);
+        panelEndGameUI.SetActive(true);
+        StartCoroutine(ExitAppAfterSeconds(secondsToQuitAppAffterWin));
+        Time.timeScale = 0f;
     }
 
     private void GameManagerSO_OnInteractuableObjectDetected(GameManagerSO.InteractuableObjectType obj)
@@ -98,16 +111,7 @@ public class CanvasManager : MonoBehaviour
     private void OnDisable()
     {
         gameManagerSO.OnInteractuableObjectDetected -= GameManagerSO_OnInteractuableObjectDetected;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Exit"))
-        {
-            // hide minimap, show UI end game
-            panelMiniMap.SetActive(false);
-            panelEndGameUI.SetActive(true);
-        }
+        gameManagerSO.OnVictory -= GameManagerSO_OnVictory;
     }
 
     private IEnumerator FadeOutStartPanelUI()
@@ -143,4 +147,11 @@ public class CanvasManager : MonoBehaviour
         // fade out and disable UI start menu after x seconds
         StartCoroutine(FadeOutStartPanelUI());
     }
+
+    private IEnumerator ExitAppAfterSeconds(float seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds); //XXX Realtime is not affected by Time.timeScale
+        Application.Quit();
+    }
+
 }
