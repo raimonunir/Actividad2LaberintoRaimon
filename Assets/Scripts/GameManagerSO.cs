@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(menuName = "GameManagerSO")]
 public class GameManagerSO : ScriptableObject
@@ -16,6 +17,7 @@ public class GameManagerSO : ScriptableObject
     public event Action<int> OnSwitchActivated;
     public event Action<InteractuableObjectType> OnInteractuableObjectDetected;
     public event Action OnVictory;
+    public event Action OnDeath;
 
     // Switch has been activated
     public void SwitchActivated(int idSwitch)
@@ -31,6 +33,11 @@ public class GameManagerSO : ScriptableObject
     public void Victory()
     {
         OnVictory?.Invoke();
+    }
+
+    public void Death()
+    {
+        OnDeath?.Invoke();
     }
 
 

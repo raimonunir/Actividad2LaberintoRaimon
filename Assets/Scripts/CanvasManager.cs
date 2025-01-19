@@ -12,6 +12,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField][Range(0.5f, 1.5f)] private float minimumSecondsShowingStartMenu;
     [SerializeField] private GameObject panelEndGameUI;
     [SerializeField] private GameObject panelMiniMap;
+    [SerializeField] private GameObject panelDeath;
 
     [Header("Camera Target UI")]
     [SerializeField] private GameObject panelCameraTarget;
@@ -32,6 +33,7 @@ public class CanvasManager : MonoBehaviour
         panelStartUI.SetActive(true);
         panelCameraTarget.SetActive(false);
         panelEndGameUI.SetActive(false);
+        panelDeath.SetActive(false);
         panelStartUIanimator = panelStartUI.GetComponent<Animator>();
         imagePointCameraTarget.enabled = false;
         textTargetInfo.enabled = false;
@@ -57,6 +59,14 @@ public class CanvasManager : MonoBehaviour
     {
         gameManagerSO.OnInteractuableObjectDetected += GameManagerSO_OnInteractuableObjectDetected;
         gameManagerSO.OnVictory += GameManagerSO_OnVictory;
+        gameManagerSO.OnDeath += GameManagerSO_OnDeath;
+    }
+
+    private void GameManagerSO_OnDeath()
+    {
+        panelMiniMap.SetActive(false);
+        panelCameraTarget.SetActive(false);
+        panelDeath.SetActive(true);
     }
 
     private void GameManagerSO_OnVictory()
