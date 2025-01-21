@@ -34,16 +34,13 @@ public class PlayerMovement : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         cameraPlayer = GetComponentInChildren<Camera>();
+
+        gameManagerSO.SetAlive();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // walk movement
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        Vector3 direction = (transform.right * x + transform.forward * z).normalized;
-        characterController.Move (movementSpeed * Time.deltaTime * direction);
 
         // gravity
         isGrounded = Physics.CheckSphere(checkGroundEmpty.position, groundCheckDistance, groundLayerMask);
@@ -55,8 +52,23 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
 
+        // user input
+        if (gameManagerSO.isAlive) {
+            CheckInputUser();
+        }
+    }
+
+    private void CheckInputUser()
+    {
+        // walk movement
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        Vector3 direction = (transform.right * x + transform.forward * z).normalized;
+        characterController.Move(movementSpeed * Time.deltaTime * direction);
+
+
         // jump
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -64,13 +76,15 @@ public class PlayerMovement : MonoBehaviour
         //XXX rotation is in cameraPlayer MouseLook component
 
         // raycast
-        if (Input.GetMouseButtonDown(0)) {
-            if (Physics.Raycast(cameraPlayer.transform.position, cameraPlayer.transform.forward, out RaycastHit hitInfo, maxRaycastDistance, layermaskRaycast)) {
-                
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (Physics.Raycast(cameraPlayer.transform.position, cameraPlayer.transform.forward, out RaycastHit hitInfo, maxRaycastDistance, layermaskRaycast))
+            {
+
                 Debug.DrawRay(cameraPlayer.transform.position, cameraPlayer.transform.forward * maxRaycastDistance, Color.red, 10f);
                 if (hitInfo.collider.TryGetComponent(out DoorSwitch doorSwitch))
                 {
-                    if(doorSwitch.IsSwitchActive)
+                    if (doorSwitch.IsSwitchActive)
                     {
                         doorSwitch.ActivateAnimation();
                         gameManagerSO.SwitchActivated(doorSwitch.IdDoorSwitch);
@@ -82,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Physics.Raycast(cameraPlayer.transform.position, cameraPlayer.transform.forward, out RaycastHit hitInfo, maxRaycastDistance, layermaskRaycast))
+        if (gameManagerSO.isAlive && Physics.Raycast(cameraPlayer.transform.position, cameraPlayer.transform.forward, out RaycastHit hitInfo, maxRaycastDistance, layermaskRaycast))
         {
             if (hitInfo.collider.TryGetComponent(out DoorSwitch doorSwitch))
             {
@@ -102,4 +116,5 @@ public class PlayerMovement : MonoBehaviour
             Debug.DrawRay(cameraPlayer.transform.position, cameraPlayer.transform.forward * maxRaycastDistance, Color.white);
         }
     }
+
 }

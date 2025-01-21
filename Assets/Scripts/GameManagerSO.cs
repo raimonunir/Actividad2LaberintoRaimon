@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +20,10 @@ public class GameManagerSO : ScriptableObject
     public event Action<InteractuableObjectType> OnInteractuableObjectDetected;
     public event Action OnVictory;
     public event Action OnDeath;
+
+    private bool m_isAlive = true;
+
+    public bool isAlive {  get => m_isAlive;  }
 
     // Switch has been activated
     public void SwitchActivated(int idSwitch)
@@ -38,7 +44,16 @@ public class GameManagerSO : ScriptableObject
     public void Death()
     {
         OnDeath?.Invoke();
+        m_isAlive = false;
     }
 
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
+    public void SetAlive()
+    {
+        m_isAlive = true;
+    }
 }

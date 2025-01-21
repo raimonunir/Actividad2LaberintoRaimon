@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7204160069060452416}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 14.14, y: 2.5, z: 27.1}
   m_LocalScale: {x: 10, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d085e80747551764b8a92bbf09ccff0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManagerSO: {fileID: 11400000, guid: 1e9b74077e2fc3a4082f3a52c97b5d3f, type: 2}
   wallLeft: {fileID: 6482830209470248006}
   wallRight: {fileID: 7024719366425352134}
-  wallTrapSpeed: 2
+  wallTrapForce: 1400
 --- !u!65 &7917367771977697997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -204,9 +205,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 118
   m_CollisionDetection: 0
 --- !u!1001 &8690425953393736449
 PrefabInstance:
@@ -341,7 +342,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 118
   m_CollisionDetection: 0

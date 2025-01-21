@@ -41,23 +41,15 @@ public class WallTrap : MonoBehaviour
         }
     }
 
-    private void Update() 
-    {
-        /*
-        if (wallTrapActivated)
-        {
-            wallRight.transform.Translate(Time.deltaTime * wallTrapForce * wallRight.transform.forward);
-            wallLeft.transform.Translate(Time.deltaTime * -wallTrapForce * wallLeft.transform.forward);
-            if(wallTrapWallLeft.isTouchingPlayer && wallTrapWallRight.isTouchingPlayer)
-            {
-                gameManagerSO.Death();
-            }
-        }
-        */
-    }
 
     private void FixedUpdate()
     {
+        if (!gameManagerSO.isAlive) {
+            return;
+        }
+
+        //XXX if player is death this won't be executed XXX
+
         if (wallTrapActivated)
         {
             wallRightRigidBody.AddForce(wallRight.transform.forward * wallTrapForce, ForceMode.Force);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CanvasManager : MonoBehaviour
@@ -13,6 +14,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject panelEndGameUI;
     [SerializeField] private GameObject panelMiniMap;
     [SerializeField] private GameObject panelDeath;
+    [SerializeField] private TextMeshProUGUI textRestartIn;
 
     [Header("Camera Target UI")]
     [SerializeField] private GameObject panelCameraTarget;
@@ -61,13 +63,37 @@ public class CanvasManager : MonoBehaviour
         gameManagerSO.OnVictory += GameManagerSO_OnVictory;
         gameManagerSO.OnDeath += GameManagerSO_OnDeath;
     }
+    private void OnDisable()
+    {
+        gameManagerSO.OnInteractuableObjectDetected -= GameManagerSO_OnInteractuableObjectDetected;
+        gameManagerSO.OnVictory -= GameManagerSO_OnVictory;
+        gameManagerSO.OnDeath -= GameManagerSO_OnDeath;
+    }
 
     private void GameManagerSO_OnDeath()
     {
         panelMiniMap.SetActive(false);
         panelCameraTarget.SetActive(false);
         panelDeath.SetActive(true);
+        Debug.Log("CanvasONDEAAAATH");
+        StartCoroutine(RestartCountdown());
     }
+
+    private IEnumerator RestartCountdown()
+    {
+        Debug.Log("CoroutineONDEAAAATH");
+        int seconds = 3;
+        while (seconds > 0)
+        {
+            Debug.Log($"Restarting the game in {seconds} seconds");
+            textRestartIn.text = "Restarting the game in "+seconds+" seconds";
+            yield return new WaitForSeconds(1f);
+            seconds--;
+        }
+
+        gameManagerSO.ResetLevel();
+    }
+
 
     private void GameManagerSO_OnVictory()
     {
@@ -118,11 +144,7 @@ public class CanvasManager : MonoBehaviour
         isDesativaeTargetInfoRunning = false;
     }
 
-    private void OnDisable()
-    {
-        gameManagerSO.OnInteractuableObjectDetected -= GameManagerSO_OnInteractuableObjectDetected;
-        gameManagerSO.OnVictory -= GameManagerSO_OnVictory;
-    }
+
 
     private IEnumerator FadeOutStartPanelUI()
     {
