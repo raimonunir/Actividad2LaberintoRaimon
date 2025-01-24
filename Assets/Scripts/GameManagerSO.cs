@@ -20,6 +20,7 @@ public class GameManagerSO : ScriptableObject
     public event Action<InteractuableObjectType> OnInteractuableObjectDetected;
     public event Action OnVictory;
     public event Action OnDeath;
+    public event Action <float, float, float> OnShake;
 
     private bool m_isAlive = true;
 
@@ -45,6 +46,11 @@ public class GameManagerSO : ScriptableObject
     {
         OnDeath?.Invoke();
         m_isAlive = false;
+    }
+
+    public void Shake(float shakeAmount = 0.7f, float shakeDecreaseFactor = 0.01f, float shakeDuration = 1.5f)
+    {
+        OnShake?.Invoke(shakeAmount, shakeDecreaseFactor, shakeDuration);  
     }
 
     public void ResetLevel()
