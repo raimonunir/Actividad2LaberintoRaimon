@@ -16,6 +16,8 @@ public class WallTrap : MonoBehaviour
     private Rigidbody wallLeftRigidBody;
     private Rigidbody wallRightRigidBody;
     private bool wallTrapActivated = false;
+    private float initialZpositionWallLeft;
+    private float initialZpositionWallRight;
 
     private void Start()
     {
@@ -23,6 +25,8 @@ public class WallTrap : MonoBehaviour
         wallTrapWallRight = wallRight.GetComponent<WallTrapWall>();
         wallLeftRigidBody = wallLeft.GetComponent<Rigidbody>();
         wallRightRigidBody = wallRight.GetComponent<Rigidbody>();
+        initialZpositionWallLeft = wallLeftRigidBody.position.z;
+        initialZpositionWallRight = wallRightRigidBody.position.z;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -57,6 +61,17 @@ public class WallTrap : MonoBehaviour
             if (wallTrapWallLeft.isTouchingPlayer && wallTrapWallRight.isTouchingPlayer)
             {
                 gameManagerSO.Death();
+            }
+        }
+        else
+        {
+            if(wallRightRigidBody.position.z > initialZpositionWallRight)
+            {
+                wallRightRigidBody.AddForce(wallRight.transform.forward * -wallTrapForce, ForceMode.Force);
+            }            
+            if(wallLeftRigidBody.position.z < initialZpositionWallLeft)
+            {
+                wallLeftRigidBody.AddForce(wallLeft.transform.forward * wallTrapForce, ForceMode.Force);
             }
         }
     }

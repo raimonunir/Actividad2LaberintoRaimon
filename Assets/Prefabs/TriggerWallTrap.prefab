@@ -50,7 +50,7 @@ MonoBehaviour:
   gameManagerSO: {fileID: 11400000, guid: 1e9b74077e2fc3a4082f3a52c97b5d3f, type: 2}
   wallLeft: {fileID: 6482830209470248006}
   wallRight: {fileID: 7024719366425352134}
-  wallTrapForce: 1400
+  wallTrapForce: 1350
 --- !u!65 &7917367771977697997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 118
   m_CollisionDetection: 0
 --- !u!1001 &8690425953393736449
 PrefabInstance:
@@ -344,5 +344,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 118
   m_CollisionDetection: 0

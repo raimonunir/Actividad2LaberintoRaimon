@@ -19,3 +19,4 @@ MonoBehaviour:
   fireDamage: 40
   boulderDamage: 100
   poisonDamage: 30
+  m_timerToGetDark: 15

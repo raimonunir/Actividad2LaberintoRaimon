@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class GameManagerSO : ScriptableObject
     [SerializeField][Range(1f, 100f)] private float fireDamage;
     [SerializeField][Range(1f, 100f)] private float boulderDamage;
     [SerializeField][Range(1f, 100f)] private float poisonDamage;
+    [SerializeField][Range(5f, 120f)][Tooltip("Seconds to sunset")] private float m_timerToGetDark;
 
 
     // events
@@ -36,6 +38,7 @@ public class GameManagerSO : ScriptableObject
     private float currentHp;
 
     public bool isAlive {  get => m_isAlive;  }
+    public float timerToDark { get => m_timerToGetDark; }
 
     // Switch has been activated
     public void SwitchActivated(int idSwitch)
@@ -101,4 +104,5 @@ public class GameManagerSO : ScriptableObject
         // gameover
         if (currentHp <= 0f) { Death(); }
     }
+
 }
