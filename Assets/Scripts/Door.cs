@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UIElements;
 
 public class Door : MonoBehaviour
@@ -14,12 +15,12 @@ public class Door : MonoBehaviour
 
 
     private bool isClosed = true;
-    private float sizeY;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -51,6 +52,9 @@ public class Door : MonoBehaviour
         // wait 1 second
         yield return new WaitForSeconds(1f);
 
+        // play sound
+        audioSource.Play();
+
         // open the door
         while (true)
         {
@@ -59,9 +63,14 @@ public class Door : MonoBehaviour
             if (transform.position.y <= maxOpenYPosition)
                 break;
         }
+        // stop sound
+        audioSource.Pause();
 
         // waits for x seconds
         yield return new WaitForSeconds(timeOpen);
+
+        // play sound
+        audioSource.UnPause();
 
         // close the door
         while (true)
@@ -72,5 +81,8 @@ public class Door : MonoBehaviour
                 break;
         }
         isClosed = true;
+
+        // stop audio
+        audioSource.Stop();
     } 
 }

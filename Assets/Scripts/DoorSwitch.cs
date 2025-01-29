@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class DoorSwitch : MonoBehaviour
 
     private Animator animator;
     private bool isActive = true;
+    private AudioSource audioSource;
 
 
     public int IdDoorSwitch { get => idDoorSwitch;}
@@ -18,6 +20,7 @@ public class DoorSwitch : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void ActivateAnimation()
@@ -36,5 +39,10 @@ public class DoorSwitch : MonoBehaviour
         animator.SetTrigger("TriggerClose");
         yield return new WaitForSeconds(switchActivatedPause);
         isActive = true;
+    }
+
+    public void PlaySound()
+    {
+        audioSource.PlayOneShot(audioSource.clip);
     }
 }

@@ -45,7 +45,7 @@ public class Sun : MonoBehaviour
                 hasPassOneRound = lastRotationX < transform.rotation.eulerAngles.x;
             }
             lastRotationX = transform.rotation.eulerAngles.x;
-            Debug.Log("hasPassOneRound="+ hasPassOneRound+" lr =" + lastRotationX + " transform.rotation.eulerAngles.x=" + transform.rotation.eulerAngles.x + " rotationDarkPositive=" + rotationDarkPositive);
+            //Debug.Log("hasPassOneRound="+ hasPassOneRound+" lr =" + lastRotationX + " transform.rotation.eulerAngles.x=" + transform.rotation.eulerAngles.x + " rotationDarkPositive=" + rotationDarkPositive);
             
             myLight.intensity -= lightIntensityInterval;
             myLight.colorTemperature -= lightKelvinsInterval;

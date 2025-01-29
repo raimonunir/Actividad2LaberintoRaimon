@@ -15,14 +15,16 @@ public class TNTtrap : MonoBehaviour
     [SerializeField] private GameObject wick;
     [SerializeField] private GameObject explosionStain;
     [SerializeField][Range(4f, 10f)] private float letalRange;
+    [SerializeField] private AudioSource audioSourceWick;
 
     private Animator animationController;
-
+    private AudioSource audioSourceExplosion;
 
     // Start is called before the first frame update
     void Start()
     {
         animationController = GetComponent<Animator>();
+        audioSourceExplosion = GetComponent<AudioSource>();
     }
 
     public void ActivateWick()
@@ -30,15 +32,17 @@ public class TNTtrap : MonoBehaviour
         wickParticleSystem.gameObject.SetActive(true); 
         wickParticleSystem.Play();
         animationController.SetTrigger("TriggerWick");
+        audioSourceWick.Play(); 
     }
 
     public void Explosion()
     {
-        Debug.Log("Explosion!!!!");
+        audioSourceExplosion.Play();
         explosionStain.SetActive(true);
         Destroy(wick);
         Destroy(cylinder);
         wickParticleSystem.Stop();
+        audioSourceWick.Stop();
         wickParticleSystem.gameObject.SetActive(false);
         explosionParticleSystemOne.Play();
         explosionParticleSystemTwo.Play();

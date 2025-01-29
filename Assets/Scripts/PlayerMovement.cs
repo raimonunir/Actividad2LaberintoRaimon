@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))] 
@@ -22,11 +24,21 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask layermaskRaycast;
     [SerializeField][Range(10f, 40f)] private float maxRaycastDistance;
 
+    [Header("Sound")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField][Range(0f, 0.1f)][Tooltip("Under this value in input aixis there will be no step sound")] 
+    private float soundMovementMaring;
+    [SerializeField] private List<AudioClip> stepsAudioClips;
+    [SerializeField] private List<AudioClip> jumpStartAudioClips;
+    [SerializeField] private List<AudioClip> jumpLandAudioClips;
+
+
     private CharacterController characterController;
     private Camera cameraPlayer;
     private float gravity = -9.81f;
     private Vector3 velocity;
     private bool isGrounded;
+    
 
 
     // Start is called before the first frame update
@@ -34,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         cameraPlayer = GetComponentInChildren<Camera>();
+        //audioSourceWick.Play();
 
         gameManagerSO.SetAlive();
     }
@@ -61,6 +74,18 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        // sound
+        audioSource.PlayOneShot(jumpStartAudioClips[Random.Range(0, jumpStartAudioClips.Count)]);
+        StartCoroutine(WaitForLanding());
+    }
+
+    private IEnumerator WaitForLanding()
+    {
+        // give some time before reading from isGrounded
+        yield return new WaitForSeconds(0.5f);
+        // if it is grounded again play landing sound
+        yield return new WaitUntil(()=>isGrounded);
+        audioSource.PlayOneShot(jumpLandAudioClips[Random.Range(0, jumpLandAudioClips.Count)]);
     }
 
     private void CheckInputUser()
@@ -68,9 +93,15 @@ public class PlayerMovement : MonoBehaviour
         // walk movement
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
+        
+        // sound movement
+        if ((Mathf.Abs(x) > soundMovementMaring || Mathf.Abs(z) > soundMovementMaring) && !audioSource.isPlaying && isGrounded) {
+            audioSource.PlayOneShot(stepsAudioClips[Random.Range(0, stepsAudioClips.Count)]);
+        }
+
         Vector3 direction = (transform.right * x + transform.forward * z).normalized;
         characterController.Move(movementSpeed * Time.deltaTime * direction);
-
 
         #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.K)) {
