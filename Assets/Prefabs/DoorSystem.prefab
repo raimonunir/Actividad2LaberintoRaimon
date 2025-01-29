@@ -331,7 +331,8 @@ MonoBehaviour:
   gameManagerSO: {fileID: 11400000, guid: 1e9b74077e2fc3a4082f3a52c97b5d3f, type: 2}
   idDoor: 0
   speed: 2
-  timeOpen: 3
+  timeOpen: 1.5
+  doorCollider: {fileID: 4555866157233289141}
 --- !u!33 &4903907383817556402
 MeshFilter:
   m_ObjectHideFlags: 0

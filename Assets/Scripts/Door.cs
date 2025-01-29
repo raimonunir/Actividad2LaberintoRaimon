@@ -10,15 +10,16 @@ public class Door : MonoBehaviour
     [SerializeField] private int idDoor;
     [SerializeField] private float speed;
     [SerializeField][Range(0.5f, 5f)] private float timeOpen;
+    [SerializeField] private BoxCollider doorCollider;
+
 
     private bool isClosed = true;
-    private Collider mycollider;
     private float sizeY;
 
     // Start is called before the first frame update
     void Start()
     {
-        mycollider = GetComponent<Collider>();
+
     }
 
 
@@ -42,7 +43,7 @@ public class Door : MonoBehaviour
 
     private IEnumerator OpenCloseDoorMechanic()
     {
-        float maxOpenYPosition = transform.position.y + 0.1f - mycollider.bounds.size.y;
+        float maxOpenYPosition = transform.position.y + 0.1f - doorCollider.bounds.size.y + 0.5f;
         float closePosition = transform.position.y;
 
         isClosed = false;

@@ -58,6 +58,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void Jump()
+    {
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
     private void CheckInputUser()
     {
         // walk movement
@@ -67,10 +72,16 @@ public class PlayerMovement : MonoBehaviour
         characterController.Move(movementSpeed * Time.deltaTime * direction);
 
 
+        #if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.K)) {
+            gameManagerSO.Damage(GameManagerSO.DamageType.spike);
+        }
+        #endif
+
         // jump
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            Jump();
         }
 
         //XXX rotation is in cameraPlayer MouseLook component

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1440958550441480509}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.1, y: 2.56, z: 0}
+  m_LocalPosition: {x: -13.4, y: 2.56, z: 0}
   m_LocalScale: {x: 8, y: 5, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 979f1a0218c9be14abd185546d6f09f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_gameManager: {fileID: 11400000, guid: 1e9b74077e2fc3a4082f3a52c97b5d3f, type: 2}
   boulder: {fileID: 89207641337810093}
+  shakeAmount: 0.259
+  shakeDecreaseFactor: 0.1
+  shakeDuration: 0.91
 --- !u!65 &8313878635982392982
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -208,6 +212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManagerSO: {fileID: 11400000, guid: 1e9b74077e2fc3a4082f3a52c97b5d3f, type: 2}
+  initialImpulseForce: 74612
+  minimumKillingSpeed: 1.64
 --- !u!54 &8514282572426368070
 Rigidbody:
   m_ObjectHideFlags: 0
