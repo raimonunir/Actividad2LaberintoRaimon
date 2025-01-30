@@ -50,4 +50,10 @@ public class CanvasMainMenu : MonoBehaviour
         audioMixer.SetFloat("SFXvolume", volume);
         audioSource.Play();
     }
+
+    public void SetQualityLevel(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+        Debug.Log("Quality=>" + QualitySettings.GetQualityLevel());
+    }
 }

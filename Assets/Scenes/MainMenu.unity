@@ -660,7 +660,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.387
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -1548,7 +1548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Option A
+  m_text: Med
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a27c155054c721346919953356ce7038, type: 2}
   m_sharedMaterial: {fileID: -2953561054888932973, guid: a27c155054c721346919953356ce7038,
@@ -10102,18 +10102,30 @@ MonoBehaviour:
   m_Placeholder: {fileID: 0}
   m_ItemText: {fileID: 9093253508184940858}
   m_ItemImage: {fileID: 0}
-  m_Value: 0
+  m_Value: 1
   m_Options:
     m_Options:
-    - m_Text: Option A
+    - m_Text: Max
       m_Image: {fileID: 21300062, guid: 36bbf91eb47491242b75b7e2df16947f, type: 3}
-    - m_Text: Option B
+    - m_Text: Med
       m_Image: {fileID: 0}
-    - m_Text: Option C
+    - m_Text: Min
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8913259451627860770}
+        m_TargetAssemblyTypeName: CanvasMainMenu, Assembly-CSharp
+        m_MethodName: SetQualityLevel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!224 &9155640176281118837
 RectTransform:
