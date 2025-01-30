@@ -105,4 +105,15 @@ public class GameManagerSO : ScriptableObject
         if (currentHp <= 0f) { Death(); }
     }
 
+
+    public void Exit()
+    {
+        Debug.Log("Byebye!");
+        Application.Quit();
+    }
+
+    public void Play()
+    {
+        SceneManager.LoadScene(1);
+    }
 }

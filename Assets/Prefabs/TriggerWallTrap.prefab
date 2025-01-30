@@ -345,6 +345,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallTrapLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 1866259736962886855, guid: 074c2407fe2808e48b1b68292aac0747,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8479621958812978725, guid: 074c2407fe2808e48b1b68292aac0747,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -438,6 +443,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WallTrapRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 1866259736962886855, guid: 074c2407fe2808e48b1b68292aac0747,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8479621958812978725, guid: 074c2407fe2808e48b1b68292aac0747,
         type: 3}

@@ -182,6 +182,7 @@ public class CanvasManager : MonoBehaviour
 
     private IEnumerator ExitAppAfterSeconds(float seconds)
     {
+        Debug.LogError("NO USES ESTA OPCIÓN");
         yield return new WaitForSecondsRealtime(seconds); //XXX Realtime is not affected by Time.timeScale
         Application.Quit();
     }
