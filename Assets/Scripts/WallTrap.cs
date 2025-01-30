@@ -10,6 +10,8 @@ public class WallTrap : MonoBehaviour
     [SerializeField] private GameObject wallLeft;
     [SerializeField] private GameObject wallRight;
     [SerializeField][Range(1000f, 100000f)] private float wallTrapForce;
+    [SerializeField] private AudioSource audioSourceWallLeft;
+    [SerializeField] private AudioSource audioSourceWallRight;
 
     private WallTrapWall wallTrapWallLeft;
     private WallTrapWall wallTrapWallRight;
@@ -18,6 +20,8 @@ public class WallTrap : MonoBehaviour
     private bool wallTrapActivated = false;
     private float initialZpositionWallLeft;
     private float initialZpositionWallRight;
+    private Vector3 lastPositionWallLeft;
+    private Vector3 lastPositionWallRight;
 
     private void Start()
     {
@@ -74,6 +78,36 @@ public class WallTrap : MonoBehaviour
                 wallLeftRigidBody.AddForce(wallLeft.transform.forward * wallTrapForce, ForceMode.Force);
             }
         }
+
+        // sound wall left
+        if (Vector3.Distance(lastPositionWallLeft, wallLeftRigidBody.position) > 0.01f && wallLeftRigidBody.GetAccumulatedForce().magnitude > 0.1f)
+        {
+            if (!audioSourceWallLeft.isPlaying)
+            {
+                audioSourceWallLeft.Play();
+            }
+        }
+        else
+        {
+            audioSourceWallLeft.Stop();
+        }
+
+        // sound wall right
+        if(Vector3.Distance(lastPositionWallRight, wallRightRigidBody.position) > 0.01f && wallRightRigidBody.GetAccumulatedForce().magnitude > 0.1f)
+        {
+            if (!audioSourceWallRight.isPlaying)
+            {
+                audioSourceWallRight.Play();
+            }
+        }
+        else
+        {
+            audioSourceWallRight.Stop();
+        }
+
+        //XXX rigidbody.velocity is not working, I need to save lasts positions
+        lastPositionWallLeft = wallLeftRigidBody.position;
+        lastPositionWallRight = wallRightRigidBody.position;
     }
 
 }
